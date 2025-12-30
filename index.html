@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>新横浜ランチ</title>
+  <meta name="theme-color" content="#0f766e">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body { font-family: system-ui; margin: 0; padding: 16px; background: #f8fafc; }
+    h1 { font-size: 20px; }
+    button { padding: 12px; margin-top: 12px; width: 100%; font-size: 16px; }
+    .card { background: #fff; padding: 12px; margin-top: 12px; border-radius: 8px; }
+    .muted { color: #64748b; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>🍽 新横浜ランチ</h1>
+
+  <button onclick="showLunch()">おすすめを見る</button>
+
+  <div id="results"></div>
+
+  <script>
+    const shops = [
+      { name: "ラーメン武蔵", walk: 10, price: 1000, smoke: false, url: "https://www.google.com/maps/search/ラーメン武蔵+新横浜" },
+      { name: "洋食キッチンA", walk: 12, price: 1200, smoke: false, url: "https://www.google.com/maps/search/洋食+新横浜" },
+      { name: "定食やB", walk: 8, price: 900, smoke: false, url: "https://www.google.com/maps/search/定食+新横浜" },
+      { name: "カレーC", walk: 14, price: 1100, smoke: false, url: "https://www.google.com/maps/search/カレー+新横浜" }
+    ];
+
+    function showLunch() {
+      const shuffled = shops.sort(() => 0.5 - Math.random());
+      const picked = shuffled.slice(0, 3);
+      const area = document.getElementById("results");
+      area.innerHTML = "";
+
+      picked.forEach(s => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+          <strong>${s.name}</strong><br>
+          <span class="muted">徒歩${s.walk}分 / ¥${s.price}</span><br>
+          <a href="${s.url}" target="_blank">📍地図を開く</a>
+        `;
+        area.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
